@@ -11,6 +11,7 @@
     <modules>
         <module>databaseapi</module>
         <module>webportal</module>
+        <module>taskexecuter</module>
     </modules>
 
     <properties>
