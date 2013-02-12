@@ -4,14 +4,101 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.myeducation.project</groupId>
-    <artifactId>org.myeducation.project</artifactId>
+    <groupId>org.myeducation</groupId>
+    <artifactId>project</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>org.myeducation.databaseapi</module>
-        <module>org.myeducation.webportal</module>
+        <module>databaseapi</module>
+        <module>webportal</module>
     </modules>
 
+    <properties>
+        <gwtVersion>2.5.0</gwtVersion>
 
+        <hibernate.version>3.6.3.Final</hibernate.version>
+        <mysql.version>5.1.9</mysql.version>
+        <slf4j.log4j12.version>1.7.2</slf4j.log4j12.version>
+
+        <junit.version>4.7</junit.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-servlet</artifactId>
+                <version>${gwtVersion}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-user</artifactId>
+                <version>${gwtVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+                <classifier>sources</classifier>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>smartgwt</groupId>
+                <artifactId>smartgwt</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>smartgwt</groupId>
+                <artifactId>smartgwt-skins</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.12.1.GA</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.log4j12.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
