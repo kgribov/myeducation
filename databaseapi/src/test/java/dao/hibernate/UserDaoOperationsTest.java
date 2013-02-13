@@ -13,7 +13,7 @@ import org.myeducation.databaseapi.entities.User;
  * Time: 20:07
  * To change this template use File | Settings | File Templates.
  */
-public class CheckUserDaoOperations {
+public class UserDaoOperationsTest {
 
     private UserHibernateDAO userDAO;
 

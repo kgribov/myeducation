@@ -11,7 +11,7 @@ import org.junit.Test;
  * Time: 18:49
  * To change this template use File | Settings | File Templates.
  */
-public class CheckDbConnection {
+public class DbConnectionTest {
 
     @Test
     public void testConnection(){
