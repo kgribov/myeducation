@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="MyEducationDB" product="MySQL" version="5.6.10" jdbc-version="3.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.9 ( Revision: ${svn.Revision} )" uuid="4a8e6564-9741-4097-ab26-8a2fe6bd1d06">
+    <extra-name-characters>#@</extra-name-characters>
+    <identifier-quote-string>`</identifier-quote-string>
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://localhost:3306/myeducationdb</jdbc-url>
+    <user-name>batman</user-name>
+    <user-password>dfc6dfc5dfdcdfcfdfc8dfcbdfdedfc7dfcbdfc4</user-password>
+    <schema-pattern>myeducationdb.*</schema-pattern>
+    <default-schemas>myeducationdb.*</default-schemas>
+    <libraries>
+      <library>
+        <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.9/mysql-connector-java-5.1.9.jar!/</url>
+      </library>
+    </libraries>
+    <table name="user" schema="" catalog="myeducationdb" type="TABLE">
+      <column name="user_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="user_address" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_createDate" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="user_email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_firstName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_lastName" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_phoneNumber" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_photo" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="user_id" />
+    </table>
+    <table name="userLogin" schema="" catalog="myeducationdb" type="TABLE">
+      <column name="userLogin_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="userLogin_login" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="userPassword_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="userLogin_id" />
+      <foreign-key name="FK132EBA5E8FF739C" columns="user_id" ref-table="user" ref-schema="" ref-catalog="myeducationdb" ref-columns="user_id" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="FK132EBA5EF3E70BDC" columns="userPassword_id" ref-table="userPassword" ref-schema="" ref-catalog="myeducationdb" ref-columns="userPassword_id" update-rule="3" delete-rule="3" deferrability="2" />
+    </table>
+    <table name="userPassword" schema="" catalog="myeducationdb" type="TABLE">
+      <column name="userPassword_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="userPassword_password" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="userPassword_id" />
+    </table>
+  </data-source>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/databaseapi/databaseapi.iml" filepath="$PROJECT_DIR$/databaseapi/databaseapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project.iml" filepath="$PROJECT_DIR$/project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/taskexecuter/taskexecuter.iml" filepath="$PROJECT_DIR$/taskexecuter/taskexecuter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webportal/webportal.iml" filepath="$PROJECT_DIR$/webportal/webportal.iml" />
+    </modules>
+  </component>
+</project>
+
