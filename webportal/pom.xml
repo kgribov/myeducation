@@ -76,9 +76,8 @@
           </execution>
         </executions>
         <configuration>
-          <runTarget>ClientService.html</runTarget>
+          <runTarget>MainPage.html</runTarget>
           <hostedWebapp>${webappDirectory}</hostedWebapp>
-          <i18nMessagesBundle>org.myeducation.portal.client.Messages</i18nMessagesBundle>
         </configuration>
       </plugin>
 

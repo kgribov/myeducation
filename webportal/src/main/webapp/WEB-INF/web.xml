@@ -7,7 +7,6 @@
 
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>ClientService.html</welcome-file>
+    <welcome-file>MainPage.html</welcome-file>
   </welcome-file-list>
-
 </web-app>

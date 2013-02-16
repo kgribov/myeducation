@@ -23,6 +23,7 @@
 
         <junit.version>4.7</junit.version>
 
+        <spring.version>3.0.5.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -35,6 +36,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--Project dependencies-->
+            <dependency>
+                <groupId>org.myeducation</groupId>
+                <artifactId>databaseapi</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <!--Third party dependencies-->
+
+            <!--GWT-->
             <dependency>
                 <groupId>com.google.gwt</groupId>
                 <artifactId>gwt-servlet</artifactId>
@@ -77,6 +88,7 @@
                 <version>1.0</version>
             </dependency>
 
+            <!--Mysql and Hibernate-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -99,11 +111,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.log4j12.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.myeducation</groupId>
-                <artifactId>databaseapi</artifactId>
-                <version>1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
