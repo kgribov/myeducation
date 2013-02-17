@@ -1,5 +1,6 @@
 package org.myeducation.portal.client.widget;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.Label;
@@ -20,6 +21,8 @@ public class LoginToolBar extends HLayout{
 
     //will be changed to css style
     private String color = "black";
+    private String devMode = "?gwt.codesvr=127.0.0.1:9997";
+    //private String devMode = "";
 
     public LoginToolBar(){
         init();
@@ -47,20 +50,20 @@ public class LoginToolBar extends HLayout{
         HyperLinkButton userLogin = new HyperLinkButton("Log in");
         userLogin.addMouseDownHandler(new MouseDownHandler() {
             public void onMouseDown(MouseDownEvent mouseDownEvent) {
-                Window.open("/login","_self","");
+                Window.Location.assign(GWT.getHostPageBaseURL()+"Login.html"+devMode);
             }
         });
 
         HyperLinkButton faqLink = new HyperLinkButton("FAQ");
         faqLink.addMouseDownHandler(new MouseDownHandler() {
             public void onMouseDown(MouseDownEvent mouseDownEvent) {
-                Window.open("/FAQ","_self","");
+                Window.Location.assign(GWT.getHostPageBaseURL()+"FAQ.html"+devMode);
             }
         });
         HyperLinkButton aboutLink = new HyperLinkButton("О проекте");
         aboutLink.addMouseDownHandler(new MouseDownHandler() {
             public void onMouseDown(MouseDownEvent mouseDownEvent) {
-                Window.open("/about","_self","");
+                Window.Location.assign(GWT.getHostPageBaseURL()+"About.html"+devMode);
             }
         });
 

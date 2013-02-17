@@ -3,7 +3,8 @@ package dao.hibernate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.myeducation.databaseapi.dao.hibernate.UserHibernateDAO;
+import org.myeducation.databaseapi.dao.Dao;
+import org.myeducation.databaseapi.dao.UserDAO;
 import org.myeducation.databaseapi.entities.User;
 
 /**
@@ -15,7 +16,7 @@ import org.myeducation.databaseapi.entities.User;
  */
 public class UserDaoOperationsTest {
 
-    private UserHibernateDAO userDAO;
+    private UserDAO userDAO;
 
     private String login = "login";
     private String password = "password";
@@ -26,7 +27,7 @@ public class UserDaoOperationsTest {
 
     @Before
     public void init(){
-        userDAO = new UserHibernateDAO();
+        userDAO = Dao.getFactory().createUserDao();
     }
 
     @Test

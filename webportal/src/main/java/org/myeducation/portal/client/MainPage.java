@@ -1,8 +1,13 @@
 package org.myeducation.portal.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.widgets.Label;
 import org.myeducation.portal.client.widget.LoginToolBar;
 
 /**
@@ -10,7 +15,10 @@ import org.myeducation.portal.client.widget.LoginToolBar;
  */
 public class MainPage implements EntryPoint {
 
+    private RootPanel panel = RootPanel.get();
+
     public void onModuleLoad() {
-        RootPanel.get().add(new LoginToolBar());
+        //Window.Location.assign(GWT.getHostPageBaseURL() + "Login.html");
+        panel.add(new LoginToolBar());
     }
 }
