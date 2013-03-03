@@ -14,7 +14,9 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "userlogin")
-@NamedQuery(name = "select_UserLogin_by_login", query = "SELECT u from UserLogin u where u.login=:login")
+@NamedQueries({
+        @NamedQuery(name = "select_UserLogin_by_login", query = "SELECT u from UserLogin u where u.login=:login"),
+})
 public class UserLogin {
 
     @Id
@@ -32,7 +34,7 @@ public class UserLogin {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TaskSend> taskSends;
 
     public int getId() {

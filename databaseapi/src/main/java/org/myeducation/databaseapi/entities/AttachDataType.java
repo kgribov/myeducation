@@ -22,14 +22,14 @@ public class AttachDataType {
     @Column(name = "attachdata_namepattern", length = 500)
     private String namePattern;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "attachdatatype_task")
     private Task task;
 
-    @OneToMany(mappedBy = "attachDataType", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "attachDataType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TestDatas> testDatas;
 
-    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<AttachData> datas;
 
     public long getId() {

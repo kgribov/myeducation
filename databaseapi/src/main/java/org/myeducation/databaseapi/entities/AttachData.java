@@ -21,11 +21,11 @@ public class AttachData {
     @Column(name = "attachdata_content", columnDefinition = "LONGTEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "attachdata_type")
     private AttachDataType type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinColumn(name = "tasksend_id")
     private TaskSend taskSend;
 

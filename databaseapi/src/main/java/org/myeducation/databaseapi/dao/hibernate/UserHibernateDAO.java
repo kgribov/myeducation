@@ -37,6 +37,7 @@ public class UserHibernateDAO implements UserDAO{
         manager.persist(userLogin);
 
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public void updateUserInfo(String login, User user){
@@ -56,18 +57,17 @@ public class UserHibernateDAO implements UserDAO{
         manager.remove(login);
 
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public void removeUser(String login){
-        removeUser(getLogin(login));
-    }
-
-    public void removeUser(UserLogin user){
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-
-        manager.remove(user);
+        UserLogin user = getLogin(login);
+        UserLogin removeUser = manager.find(UserLogin.class, user.getId());
+        manager.remove(removeUser);
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public UserLogin getLogin(int id){
@@ -77,7 +77,7 @@ public class UserHibernateDAO implements UserDAO{
         UserLogin login = manager.find(UserLogin.class, id);
         manager.remove(login);
         manager.getTransaction().commit();
-
+        manager.close();
         return login;
     }
 
@@ -88,7 +88,7 @@ public class UserHibernateDAO implements UserDAO{
         query.setParameter("login", login);
         UserLogin userLogin =  (UserLogin)query.getSingleResult();
         manager.getTransaction().commit();
+        manager.close();
         return userLogin;
     }
-
 }

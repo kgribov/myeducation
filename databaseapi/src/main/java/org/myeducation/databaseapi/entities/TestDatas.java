@@ -22,11 +22,11 @@ public class TestDatas {
     @Column(name = "testdatas_exectype")
     private String execType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "testdatas_attachdata")
     private AttachDataType attachDataType;
 
-    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TestData> testDatas;
 
     public long getId() {

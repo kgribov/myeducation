@@ -20,11 +20,11 @@ public class TaskSend {
     @Column(name = "tasksend_id")
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private UserLogin user;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taskSend")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taskSend", cascade = CascadeType.ALL)
     private List<AttachData> attachDatas;
 
     @Column(name = "tasksend_timesend")

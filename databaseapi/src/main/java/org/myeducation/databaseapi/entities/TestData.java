@@ -24,7 +24,7 @@ public class TestData {
     @Column(name = "testdata_outputdata", columnDefinition = "LONGTEXT")
     private String outputData;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "testdata_testdatas")
     private TestDatas testDatas;
 

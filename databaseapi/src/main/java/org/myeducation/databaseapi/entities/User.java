@@ -42,7 +42,7 @@ public class User {
     @Column(name = "user_photo")
     private String photo;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JoinColumn(name = "userlogin_id")
     private UserLogin login;
 
