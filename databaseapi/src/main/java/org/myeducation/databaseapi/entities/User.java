@@ -42,6 +42,10 @@ public class User {
     @Column(name = "user_photo")
     private String photo;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userlogin_id")
+    private UserLogin login;
+
     public int getId() {
         return id;
     }
@@ -104,5 +108,13 @@ public class User {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public UserLogin getLogin() {
+        return login;
+    }
+
+    public void setLogin(UserLogin login) {
+        this.login = login;
     }
 }

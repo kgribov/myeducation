@@ -8,6 +8,9 @@ import org.myeducation.databaseapi.dao.UserDAO;
 import org.myeducation.databaseapi.entities.User;
 import org.myeducation.databaseapi.entities.UserLogin;
 
+import javax.persistence.*;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: kirilkadurilka
@@ -15,31 +18,25 @@ import org.myeducation.databaseapi.entities.UserLogin;
  * Time: 0:05
  * To change this template use File | Settings | File Templates.
  */
+//TODO
+//    fix critic situations!!!
 public class UserHibernateDAO implements UserDAO{
 
-    private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    private EntityManagerFactory factory = Persistence.createEntityManagerFactory("server");
 
     public void addUser(String login, String password, User userInfo){
-        Session session = null;
-        try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
 
-            UserLogin userLogin = new UserLogin();
-            userLogin.setLogin(login);
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
 
-            User user = userInfo;
+        UserLogin userLogin = new UserLogin();
+        userLogin.setLogin(login);
+        userLogin.setUser(userInfo);
+        userLogin.setPassword(password);
 
-            userLogin.setUser(user);
-            userLogin.setPassword(password);
+        manager.persist(userLogin);
 
-            session.save(userLogin);
-            session.save(userInfo);
-
-            session.getTransaction().commit();
-        }finally {
-            session.close();
-        }
+        manager.getTransaction().commit();
     }
 
     public void updateUserInfo(String login, User user){
@@ -51,58 +48,47 @@ public class UserHibernateDAO implements UserDAO{
     }
 
     public void removeUser(int id){
-        Session session = null;
-        try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
 
-            UserLogin login = getLogin(id);
-            User data = login.getUser();
+        UserLogin login = getLogin(id);
 
-            session.delete(login);
-            session.delete(data);
+        manager.remove(login);
 
-            session.getTransaction().commit();
-        }finally {
-            session.close();
-        }
+        manager.getTransaction().commit();
     }
 
     public void removeUser(String login){
-        removeUser(getLogin(login).getId());
+        removeUser(getLogin(login));
+    }
+
+    public void removeUser(UserLogin user){
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+
+        manager.remove(user);
+        manager.getTransaction().commit();
     }
 
     public UserLogin getLogin(int id){
-        UserLogin login = null;
-        Session session = null;
-        try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
 
-            login = (UserLogin)session.get(UserLogin.class, id);
+        UserLogin login = manager.find(UserLogin.class, id);
+        manager.remove(login);
+        manager.getTransaction().commit();
 
-            session.getTransaction().commit();
-            return login;
-        }finally {
-            if(session!=null) session.close();
-        }
+        return login;
     }
 
     public UserLogin getLogin(String login){
-        UserLogin userLogin = null;
-        Session session = null;
-        try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-
-            userLogin = (UserLogin)session.createCriteria(UserLogin.class).
-                    add(Restrictions.eq("login", login)).uniqueResult();
-
-            session.getTransaction().commit();
-            return userLogin;
-        }finally {
-            if (session!=null) session.close();
-        }
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        Query query = manager.createNamedQuery("select_UserLogin_by_login");
+        query.setParameter("login", login);
+        UserLogin userLogin =  (UserLogin)query.getSingleResult();
+        manager.getTransaction().commit();
+        return userLogin;
     }
 
 }

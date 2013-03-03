@@ -9,5 +9,5 @@ package org.myeducation.databaseapi.dao;
  */
 public interface DaoFactory {
     UserDAO createUserDao();
-
+    TaskDAO createTaskDao();
 }

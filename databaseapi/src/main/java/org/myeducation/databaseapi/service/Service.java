@@ -20,16 +20,16 @@ import java.util.logging.Logger;
 public class Service {
     private static Logger logger = Logger.getLogger(Service.class.getName());
 
-    private static volatile ServiceFactory daoFactory = null;
+    private static volatile ServiceFactory serviceFactory = null;
 
     private Service(){
     }
 
     public static ServiceFactory getFactory(){
-        ServiceFactory factory = daoFactory;
+        ServiceFactory factory = serviceFactory;
         if (factory == null){
             synchronized (DaoFactory.class){
-                factory = daoFactory;
+                factory = serviceFactory;
                 if (factory == null){
                     try{
                         Properties properties = new Properties();
@@ -38,9 +38,9 @@ public class Service {
                         String module = "databaseapi";
                         properties.load(new FileReader(module+ File.separator+folder+File.separator+fileName));
                         String daoType = (String)properties.get("service.factory.type");
-                        if (daoType.equals("hibernate")){
-                            daoFactory = factory = new LocalServiceFactory();
-                            return daoFactory;
+                        if (daoType.equals("local")){
+                            serviceFactory = factory = new LocalServiceFactory();
+                            return serviceFactory;
                         }
                     }catch (IOException ex){
                         logger.log(Level.SEVERE, "Exception : " + ex);
@@ -48,6 +48,6 @@ public class Service {
                 }
             }
         }
-        return daoFactory;
+        return serviceFactory;
     }
 }

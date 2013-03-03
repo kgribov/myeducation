@@ -1,6 +1,8 @@
 package org.myeducation.databaseapi.entities;
 
 import javax.persistence.*;
+import java.util.Set;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
@@ -12,6 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table(name = "userlogin")
+@NamedQuery(name = "select_UserLogin_by_login", query = "SELECT u from UserLogin u where u.login=:login")
 public class UserLogin {
 
     @Id
@@ -25,10 +28,12 @@ public class UserLogin {
     @Column(name = "password")
     private String password;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<TaskSend> taskSends;
 
     public int getId() {
         return id;
@@ -60,5 +65,13 @@ public class UserLogin {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<TaskSend> getTaskSends() {
+        return taskSends;
+    }
+
+    public void setTaskSends(Set<TaskSend> taskSends) {
+        this.taskSends = taskSends;
     }
 }
