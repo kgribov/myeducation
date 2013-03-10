@@ -16,5 +16,20 @@
             <groupId>org.myeducation</groupId>
             <artifactId>databaseapi</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.myeducation</groupId>
+            <artifactId>configuration</artifactId>
+        </dependency>
     </dependencies>
 </project>

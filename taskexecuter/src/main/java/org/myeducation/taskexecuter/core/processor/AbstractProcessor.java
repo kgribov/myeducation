@@ -1,6 +1,8 @@
 package org.myeducation.taskexecuter.core.processor;
 
 import org.myeducation.databaseapi.entities.AttachData;
+import org.myeducation.databaseapi.entities.TestData;
+import org.myeducation.databaseapi.entities.TestDatas;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,17 +22,21 @@ public abstract class AbstractProcessor {
         executorService = Executors.newFixedThreadPool(cores);
     }
 
-    public final void execute(AttachData data){
+    public final void execute(AttachData data, TestDatas testDatas){
         final AttachData temp = data;
+        final TestDatas datas = testDatas;
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                executeData(temp);
+                for (TestData testData : datas.getTestDatas()){
+                    //
+                    executeData(temp, testData);
+                }
             }
         });
     }
 
-    public abstract void executeData(AttachData data);
+    protected abstract void executeData(AttachData data, TestData testData);
 
     public abstract String getProcessorName();
 }

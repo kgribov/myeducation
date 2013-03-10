@@ -2,6 +2,7 @@ package org.myeducation.databaseapi.service;
 
 import org.myeducation.databaseapi.dao.DaoFactory;
 import org.myeducation.databaseapi.service.local.LocalServiceFactory;
+import org.myeducation.properties.PropertiesFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -31,19 +32,11 @@ public class Service {
             synchronized (DaoFactory.class){
                 factory = serviceFactory;
                 if (factory == null){
-                    try{
-                        Properties properties = new Properties();
-                        String fileName = "service.properties";
-                        String folder = "properties";
-                        String module = "databaseapi";
-                        properties.load(new FileReader(module+ File.separator+folder+File.separator+fileName));
-                        String daoType = (String)properties.get("service.factory.type");
-                        if (daoType.equals("local")){
-                            serviceFactory = factory = new LocalServiceFactory();
-                            return serviceFactory;
-                        }
-                    }catch (IOException ex){
-                        logger.log(Level.SEVERE, "Exception : " + ex);
+                    Properties properties = PropertiesFactory.getProperties("service");
+                    String daoType = (String)properties.get("service.factory.type");
+                    if (daoType.equals("local")){
+                        serviceFactory = factory = new LocalServiceFactory();
+                        return serviceFactory;
                     }
                 }
             }

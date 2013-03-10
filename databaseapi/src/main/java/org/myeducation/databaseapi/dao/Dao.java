@@ -1,6 +1,7 @@
 package org.myeducation.databaseapi.dao;
 
 import org.myeducation.databaseapi.dao.hibernate.HibernateDaoFactory;
+import org.myeducation.properties.PropertiesFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -31,19 +32,11 @@ public class Dao {
             synchronized (DaoFactory.class){
                 factory = daoFactory;
                 if (factory == null){
-                    try{
-                        Properties properties = new Properties();
-                        String fileName = "dao.properties";
-                        String folder = "properties";
-                        String module = "databaseapi";
-                        properties.load(new FileReader(module+File.separator+folder+File.separator+fileName));
-                        String daoType = (String)properties.get("dao.factory.type");
-                        if (daoType.equals("hibernate")){
-                            daoFactory = factory = new HibernateDaoFactory();
-                            return daoFactory;
-                        }
-                    }catch (IOException ex){
-                        logger.log(Level.SEVERE, "Exception : " + ex);
+                    Properties properties = PropertiesFactory.getProperties("dao");
+                    String daoType = (String)properties.get("dao.factory.type");
+                    if (daoType.equals("hibernate")){
+                        daoFactory = factory = new HibernateDaoFactory();
+                        return daoFactory;
                     }
                 }
             }
