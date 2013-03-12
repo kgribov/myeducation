@@ -32,8 +32,8 @@ public class JavaProcessorTest {
         data1 = new AttachData();
         data1.setContent("example1.java");
         testData1 = new TestData();
-        testData1.setOutputData("Hello world");
-        testData1.setInputData("Hello world");
+        testData1.setInputData("clever");
+        testData1.setOutputData("Masha is clever");
     }
 
 

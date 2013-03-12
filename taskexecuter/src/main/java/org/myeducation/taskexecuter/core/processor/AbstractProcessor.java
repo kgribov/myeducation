@@ -23,20 +23,39 @@ public abstract class AbstractProcessor {
     }
 
     public final void execute(AttachData data, TestDatas testDatas){
-        final AttachData temp = data;
-        final TestDatas datas = testDatas;
-        executorService.execute(new Runnable() {
+
+        final AttachData attachData = data;
+        final TestDatas tests = testDatas;
+
+        Runnable processorJob = new Runnable() {
             @Override
             public void run() {
-                for (TestData testData : datas.getTestDatas()){
-                    //
-                    executeData(temp, testData);
+                for (TestData testData : tests.getTestDatas()){
+                    try{
+                        boolean result = validateResult(attachData, testData);
+                        storeResult(result, attachData, testData);
+                    }catch (Exception ex){
+                        //catch exception
+                        processException(ex, attachData, testData);
+                        break;
+                    }
                 }
             }
-        });
+        };
+
+        executorService.execute(processorJob);
+        try {
+            Thread.sleep(50000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
-    protected abstract void executeData(AttachData data, TestData testData);
+    protected abstract boolean validateResult(AttachData data, TestData testData) throws Exception;
+
+    protected abstract void processException(Exception ex, AttachData data, TestData testData);
+
+    protected abstract void storeResult(boolean result, AttachData attachData, TestData testData);
 
     public abstract String getProcessorName();
 }
