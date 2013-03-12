@@ -25,24 +25,34 @@ public class JavaProcessorTest {
 
     private AttachData data1;
     private TestData testData1;
+    private TestData testData2;
 
     @Before
     public void initMethod(){
         processor = new JavaProcessor();
         data1 = new AttachData();
         data1.setContent("example1.java");
+
         testData1 = new TestData();
         testData1.setInputData("clever");
         testData1.setOutputData("Masha is clever");
+
+        testData2 = new TestData();
+        testData2.setInputData("super");
+        testData2.setOutputData("Masha is super");
     }
 
 
     @Test
     public void testHelloWorld(){
         TestDatas datas = new TestDatas();
+
         Set<TestData> testDataSet = new HashSet<TestData>();
         testDataSet.add(testData1);
+        testDataSet.add(testData2);
+
         datas.setTestDatas(testDataSet);
+
         processor.execute(data1, datas);
     }
 }

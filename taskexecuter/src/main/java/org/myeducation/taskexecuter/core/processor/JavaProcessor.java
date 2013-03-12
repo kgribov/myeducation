@@ -33,14 +33,13 @@ public class JavaProcessor extends AbstractProcessor {
     @Override
     protected boolean validateResult(AttachData data, TestData testData) throws Exception{
         Properties properties = PropertiesFactory.getProperties("filesystem");
-        String fileName  = data.getContent();
-        String filePath = properties.getProperty("java.filepath");
-        String fullFilePathName = filePath+ File.separator+fileName;
 
-        File jarFile = new File(fullFilePathName+".jar");
+        String fullFilePathName = properties.getProperty("java.filepath") + File.separator + data.getContent();
+
+        File javaFile = new File(fullFilePathName);
+        File jarFile = new File(getJarName(javaFile));
 
         if (!jarFile.exists()){
-            File javaFile = new File(fullFilePathName);
             jarFile = createJar(javaFile);
         }
 
@@ -75,18 +74,19 @@ public class JavaProcessor extends AbstractProcessor {
         StringBuilder output = new StringBuilder();
         String line;
         while ((line = br.readLine()) != null) {
-            System.out.println(line);
             output.append(line);
         }
         Closeables.close(br, false);
 
-        System.out.println("Result=" + output);
-        System.out.println("Test data="+testData.getOutputData());
+        System.out.println("Result = " + output);
+        System.out.println("Test data = "+testData.getOutputData());
         if (output.toString().equals(testData.getOutputData())){
             System.out.println("Match!!");
+            System.out.println();
             return true;
         }else{
             System.out.println("Unmatch!!");
+            System.out.println();
             return false;
         }
     }
