@@ -1,8 +1,9 @@
 import junit.framework.Assert;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.junit.Test;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,15 +14,12 @@ import org.junit.Test;
  */
 public class DbConnectionTest {
 
+    private EntityManagerFactory factory = Persistence.createEntityManagerFactory("server");
+
     @Test
     public void testConnection(){
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Assert.assertNotNull(factory);
-
-        Session session = factory.openSession();
-        Assert.assertNotNull(session);
-
-        session.close();
-        factory.close();
+        EntityManager manager = factory.createEntityManager();
+        Assert.assertNotNull(manager);
+        manager.close();
     }
 }

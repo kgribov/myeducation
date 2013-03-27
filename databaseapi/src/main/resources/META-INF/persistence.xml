@@ -8,6 +8,8 @@
         <class>org.myeducation.databaseapi.entities.AttachDataType</class>
         <class>org.myeducation.databaseapi.entities.TestDatas</class>
         <class>org.myeducation.databaseapi.entities.TestData</class>
+        <class>org.myeducation.databaseapi.entities.AttachData</class>
+        <class>org.myeducation.databaseapi.entities.TaskSend</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

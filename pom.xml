@@ -33,6 +33,17 @@
             <id>JBoss repository</id>
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>smartclient</id>
+            <name>SmartClient Maven Repository</name>
+            <url>http://www.smartclient.com/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -85,14 +96,14 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>smartgwt</groupId>
+                <groupId>com.smartgwt</groupId>
                 <artifactId>smartgwt</artifactId>
-                <version>1.0</version>
+                <version>3.0</version>
             </dependency>
             <dependency>
-                <groupId>smartgwt</groupId>
+                <groupId>com.smartgwt</groupId>
                 <artifactId>smartgwt-skins</artifactId>
-                <version>1.0</version>
+                <version>3.0</version>
             </dependency>
 
             <!--Mysql and Hibernate-->

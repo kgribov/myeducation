@@ -1,10 +1,11 @@
-package org.myeducation.taskexecuter.core.processor;
+package org.myeducation.taskexecuter.core.processor.java;
 
 import com.google.common.io.Closeables;
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.databaseapi.entities.TestDatas;
 import org.myeducation.properties.PropertiesFactory;
+import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,15 +24,14 @@ import java.util.jar.Manifest;
  * Time: 14:43
  * To change this template use File | Settings | File Templates.
  */
-public class JavaProcessor extends AbstractProcessor {
+public class JavaProcessor extends AbstractProcessor<Boolean> {
 
     public JavaProcessor(){
-        //need to change to read from props
-        super(50);
+        super(Integer.parseInt(PropertiesFactory.getProperties("processors").getProperty("processor.java.cores")));
     }
 
     @Override
-    protected boolean validateResult(AttachData data, TestData testData) throws Exception{
+    protected Boolean validateResult(AttachData data, TestData testData) throws Exception{
         Properties properties = PropertiesFactory.getProperties("filesystem");
 
         String fullFilePathName = properties.getProperty("java.filepath") + File.separator + data.getContent();
@@ -57,19 +57,19 @@ public class JavaProcessor extends AbstractProcessor {
         commands.add(jarFile.getAbsolutePath());
 
         ProcessBuilder builder = new ProcessBuilder(commands);
-        Process process = builder.start();
+        final Process program = builder.start();
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                process.getOutputStream()));
+                program.getOutputStream()));
 
         bw.write(testData.getInputData());
 
         Closeables.close(bw, false);
 
-        process.waitFor();
+        program.waitFor();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
-                process.getInputStream()));
+                program.getInputStream()));
 
         StringBuilder output = new StringBuilder();
         String line;
@@ -152,17 +152,36 @@ public class JavaProcessor extends AbstractProcessor {
     }
 
     @Override
-    protected void processException(Exception ex, AttachData data, TestData testData) {
+    protected Boolean processException(Exception ex, AttachData data, TestData testData) {
         ex.printStackTrace();
+        return false;
     }
 
     @Override
-    protected void storeResult(boolean result, AttachData attachData, TestData testData) {
+    protected void storeResult(Boolean result, AttachData attachData, TestData testData) {
 
+    }
+
+    @Override
+    protected void storeAggregatedResult(List<Boolean> result, AttachData attachData, TestDatas testData) {
+
+    }
+
+    @Override
+    protected boolean needBreakPointResult(Boolean result){
+        if (result){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean needBreakPointException(Exception ex){
+        return false;
     }
 
     @Override
     public String getProcessorName() {
-        return "JAVA_PROCESSOR";
+        return "java";
     }
 }

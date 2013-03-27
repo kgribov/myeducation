@@ -8,6 +8,7 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.widgets.Label;
+import org.myeducation.portal.client.widget.DownloadWidget;
 import org.myeducation.portal.client.widget.LoginToolBar;
 
 /**
@@ -20,5 +21,6 @@ public class MainPage implements EntryPoint {
     public void onModuleLoad() {
         //Window.Location.assign(GWT.getHostPageBaseURL() + "Login.html");
         panel.add(new LoginToolBar());
+        panel.add(new DownloadWidget());
     }
 }

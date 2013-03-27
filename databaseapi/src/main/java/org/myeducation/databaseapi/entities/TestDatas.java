@@ -22,6 +22,9 @@ public class TestDatas {
     @Column(name = "testdatas_exectype")
     private String execType;
 
+    @Column(name = "testdatas_timeout")
+    private long timeOut;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "testdatas_attachdata")
     private AttachDataType attachDataType;
@@ -59,5 +62,13 @@ public class TestDatas {
 
     public void setTestDatas(Set<TestData> testDatas) {
         this.testDatas = testDatas;
+    }
+
+    public long getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(long timeOut) {
+        this.timeOut = timeOut;
     }
 }

@@ -3,11 +3,10 @@ package processor.java;
 import org.junit.Before;
 import org.junit.Test;
 import org.myeducation.databaseapi.entities.AttachData;
-import org.myeducation.databaseapi.entities.AttachDataType;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.databaseapi.entities.TestDatas;
 import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
-import org.myeducation.taskexecuter.core.processor.JavaProcessor;
+import org.myeducation.taskexecuter.core.processor.java.JavaProcessor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,10 +45,14 @@ public class JavaProcessorTest {
     @Test
     public void testHelloWorld(){
         TestDatas datas = new TestDatas();
+        datas.setTimeOut(3000);
 
         Set<TestData> testDataSet = new HashSet<TestData>();
         testDataSet.add(testData1);
+        testData1.setTestDatas(datas);
+
         testDataSet.add(testData2);
+        testData2.setTestDatas(datas);
 
         datas.setTestDatas(testDataSet);
 

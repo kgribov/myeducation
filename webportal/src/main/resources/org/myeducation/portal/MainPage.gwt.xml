@@ -2,9 +2,8 @@
 <module rename-to='Main'>
 
   <inherits name='com.google.gwt.user.User' />
-  <inherits name="com.smartgwt.SmartGwt"/>
-
   <inherits name='com.google.gwt.user.theme.standard.Standard' />
+  <inherits name="com.smartgwt.SmartGwt"/>
 
   <entry-point class='org.myeducation.portal.client.MainPage' />
 
