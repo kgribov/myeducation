@@ -1,5 +1,6 @@
 package org.myeducation.taskexecuter.core;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: kirilkadurilka
@@ -9,7 +10,22 @@ package org.myeducation.taskexecuter.core;
  */
 public class SlaveLauncher {
     public static void main(String[] args){
-        Executor executor = new Executor();
 
+        final Thread currentThread = Thread.currentThread();
+        final Executor executor = new Executor();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                executor.shutDown();
+
+                try {
+                    currentThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 }

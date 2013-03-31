@@ -8,4 +8,7 @@ package org.myeducation.taskexecuter.core;
  * To change this template use File | Settings | File Templates.
  */
 public class MasterLauncher {
+    public static void main(String[] args){
+
+    }
 }

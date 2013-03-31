@@ -2,10 +2,13 @@ package org.myeducation.taskexecuter.core;
 
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestDatas;
+import org.myeducation.databaseapi.model.ExecutorData;
+import org.myeducation.databaseapi.model.ExecutorDataDto;
 import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
 import org.myeducation.taskexecuter.core.processor.program.java.JavaProcessor;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,12 +25,21 @@ public class Executor {
         avalibleProcessors.put(javaProcessor.getProcessorName(), javaProcessor);
     }
 
-    public void processData(AttachData data){
-        for (TestDatas datas : data.getType().getTestDatas()){
-            String execType = datas.getExecType();
-            AbstractProcessor processor = avalibleProcessors.get(execType);
-            processor.execute(data, datas);
+    public void processTestDatas(List<ExecutorDataDto> datas){
+        List<ExecutorData> list = getTestDatas(datas);
+        for (ExecutorData data : list){
+            processData(data.getData(), data.getTests());
         }
+    }
+
+    public void processData(AttachData data, TestDatas datas){
+        String execType = datas.getExecType();
+        AbstractProcessor processor = avalibleProcessors.get(execType);
+        processor.execute(data, datas);
+    }
+
+    protected List<ExecutorData> getTestDatas(List<ExecutorDataDto> datas){
+        return null;
     }
 
     public void shutDown(){
