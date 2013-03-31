@@ -13,10 +13,17 @@ public class ProgramResult implements Serializable {
 
     private boolean success;
     private long time;
+    private String message;
 
-    public ProgramResult(boolean success, long  time){
-        this.setSuccess(success);
-        this.setTime(time);
+    public ProgramResult(boolean  success, long time){
+        this.success = success;
+        this.time = time;
+    }
+
+    public ProgramResult(boolean success, long  time, String message){
+        this.success = success;
+        this.time = time;
+        this.setMessage(message);
     }
 
 
@@ -34,5 +41,13 @@ public class ProgramResult implements Serializable {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

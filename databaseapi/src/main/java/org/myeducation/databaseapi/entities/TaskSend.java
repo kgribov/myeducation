@@ -30,4 +30,35 @@ public class TaskSend {
     @Column(name = "tasksend_timesend")
     private long timeSend;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public UserLogin getUser() {
+        return user;
+    }
+
+    public void setUser(UserLogin user) {
+        this.user = user;
+    }
+
+    public List<AttachData> getAttachDatas() {
+        return attachDatas;
+    }
+
+    public void setAttachDatas(List<AttachData> attachDatas) {
+        this.attachDatas = attachDatas;
+    }
+
+    public long getTimeSend() {
+        return timeSend;
+    }
+
+    public void setTimeSend(long timeSend) {
+        this.timeSend = timeSend;
+    }
 }

@@ -23,7 +23,7 @@ public abstract class ProgramProcessor extends AbstractProcessor<ProgramResult> 
     @Override
     protected ProgramResult processException(Exception ex, AttachData data, TestData testData) {
         ex.printStackTrace();
-        return new ProgramResult();
+        return new ProgramResult(false, 0 ,"wrong answer");
     }
 
     @Override

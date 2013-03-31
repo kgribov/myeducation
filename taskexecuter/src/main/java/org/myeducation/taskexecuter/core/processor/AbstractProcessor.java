@@ -3,13 +3,10 @@ package org.myeducation.taskexecuter.core.processor;
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.databaseapi.entities.TestDatas;
-import org.myeducation.databaseapi.service.Service;
-import org.myeducation.databaseapi.service.StoreResultService;
+import org.myeducation.databaseapi.service.*;
 import org.myeducation.properties.PropertiesFactory;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.*;
 
@@ -22,8 +19,8 @@ import java.util.concurrent.*;
  */
 public abstract class AbstractProcessor<T extends Serializable> {
 
-    private final ExecutorService executorService;
-    private static final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+    private final java.util.concurrent.ExecutorService executorService;
+    private static final java.util.concurrent.ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     protected Properties properties = PropertiesFactory.getProperties("processors");
     protected String processorPrefix = "processor."+getProcessorName()+".";
@@ -60,12 +57,6 @@ public abstract class AbstractProcessor<T extends Serializable> {
         };
 
         executorService.execute(processorJob);
-
-        try {
-            Thread.sleep(50000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private T validate(AttachData data, TestData testData) throws Exception{
@@ -95,8 +86,12 @@ public abstract class AbstractProcessor<T extends Serializable> {
     }
 
     protected void storeResult(T result, AttachData attachData, TestData testData){
-        StoreResultService service = Service.getFactory().storeResultService();
+        org.myeducation.databaseapi.service.ExecutorService service = Service.getFactory().storeResultService();
         service.storeResult(result, attachData, testData);
+    }
+
+    public void shutDown(){
+
     }
 
     protected abstract T getResult(AttachData data, TestData testData) throws Exception;

@@ -1,8 +1,8 @@
 package org.myeducation.databaseapi.service.local;
 
 import org.myeducation.databaseapi.service.AuthService;
+import org.myeducation.databaseapi.service.ExecutorService;
 import org.myeducation.databaseapi.service.ServiceFactory;
-import org.myeducation.databaseapi.service.StoreResultService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +16,7 @@ public class LocalServiceFactory implements ServiceFactory {
         return new AuthServiceLocal();
     }
 
-    public StoreResultService storeResultService() {
-        return new StoreResultServiceLocal();
+    public ExecutorService storeResultService() {
+        return new ExecutorServiceLocal();
     }
 }

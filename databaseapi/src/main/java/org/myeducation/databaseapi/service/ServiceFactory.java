@@ -9,5 +9,5 @@ package org.myeducation.databaseapi.service;
  */
 public interface ServiceFactory {
     AuthService authService();
-    StoreResultService storeResultService();
+    ExecutorService storeResultService();
 }
