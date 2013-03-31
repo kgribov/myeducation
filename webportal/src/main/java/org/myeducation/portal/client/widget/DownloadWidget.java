@@ -19,7 +19,7 @@ public class DownloadWidget extends HLayout {
     private Button chooseFile = new Button("Выбрать");
 
     public DownloadWidget(){
-        setMembersMargin(10);
+        setMembersMargin(20);
         fileArea.setTitle("Файл");
         fileArea.setRequired(true);
         fileArea.setWidth(300);

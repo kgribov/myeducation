@@ -1,11 +1,11 @@
-package org.myeducation.taskexecuter.core.processor.java;
+package org.myeducation.taskexecuter.core.processor.program.java;
 
 import com.google.common.io.Closeables;
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestData;
-import org.myeducation.databaseapi.entities.TestDatas;
 import org.myeducation.properties.PropertiesFactory;
-import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
+import org.myeducation.taskexecuter.core.processor.program.ProgramProcessor;
+import org.myeducation.taskexecuter.core.processor.program.ProgramResult;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,14 +24,14 @@ import java.util.jar.Manifest;
  * Time: 14:43
  * To change this template use File | Settings | File Templates.
  */
-public class JavaProcessor extends AbstractProcessor<Boolean> {
+public class JavaProcessor extends ProgramProcessor {
 
     public JavaProcessor(){
         super(Integer.parseInt(PropertiesFactory.getProperties("processors").getProperty("processor.java.cores")));
     }
 
     @Override
-    protected Boolean validateResult(AttachData data, TestData testData) throws Exception{
+    protected ProgramResult getResult(AttachData data, TestData testData) throws Exception{
         Properties properties = PropertiesFactory.getProperties("filesystem");
 
         String fullFilePathName = properties.getProperty("java.filepath") + File.separator + data.getContent();
@@ -44,19 +44,21 @@ public class JavaProcessor extends AbstractProcessor<Boolean> {
         }
 
         if (jarFile.exists()){
-            return validateJarFile(jarFile, testData);
+            return getResultFromJarFile(jarFile, testData);
         }else{
             throw new FileNotFoundException("Can't find jar file="+jarFile.getAbsolutePath());
         }
     }
 
-    private boolean validateJarFile(File jarFile, TestData testData) throws Exception{
+    private ProgramResult getResultFromJarFile(File jarFile, TestData testData) throws Exception{
         List<String> commands = new ArrayList<String>();
         commands.add("java");
         commands.add("-jar");
         commands.add(jarFile.getAbsolutePath());
 
         ProcessBuilder builder = new ProcessBuilder(commands);
+
+        long startTime = System.currentTimeMillis();
         final Process program = builder.start();
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
@@ -67,6 +69,8 @@ public class JavaProcessor extends AbstractProcessor<Boolean> {
         Closeables.close(bw, false);
 
         program.waitFor();
+
+        long time = System.currentTimeMillis() - startTime;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 program.getInputStream()));
@@ -83,11 +87,11 @@ public class JavaProcessor extends AbstractProcessor<Boolean> {
         if (output.toString().equals(testData.getOutputData())){
             System.out.println("Match!!");
             System.out.println();
-            return true;
+            return new ProgramResult(true, time);
         }else{
             System.out.println("Unmatch!!");
             System.out.println();
-            return false;
+            return new ProgramResult(false, time);
         }
     }
 
@@ -149,35 +153,6 @@ public class JavaProcessor extends AbstractProcessor<Boolean> {
             if (in != null)
                 in.close();
         }
-    }
-
-    @Override
-    protected Boolean processException(Exception ex, AttachData data, TestData testData) {
-        ex.printStackTrace();
-        return false;
-    }
-
-    @Override
-    protected void storeResult(Boolean result, AttachData attachData, TestData testData) {
-
-    }
-
-    @Override
-    protected void storeAggregatedResult(List<Boolean> result, AttachData attachData, TestDatas testData) {
-
-    }
-
-    @Override
-    protected boolean needBreakPointResult(Boolean result){
-        if (result){
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean needBreakPointException(Exception ex){
-        return false;
     }
 
     @Override

@@ -8,5 +8,6 @@ package org.myeducation.databaseapi.service;
  * To change this template use File | Settings | File Templates.
  */
 public interface ServiceFactory {
-    AuthService createAuthService();
+    AuthService authService();
+    StoreResultService storeResultService();
 }

@@ -3,8 +3,11 @@ package org.myeducation.taskexecuter.core.processor;
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.databaseapi.entities.TestDatas;
+import org.myeducation.databaseapi.service.Service;
+import org.myeducation.databaseapi.service.StoreResultService;
 import org.myeducation.properties.PropertiesFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -17,7 +20,7 @@ import java.util.concurrent.*;
  * Time: 13:29
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractProcessor<T> {
+public abstract class AbstractProcessor<T extends Serializable> {
 
     private final ExecutorService executorService;
     private static final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
@@ -38,27 +41,21 @@ public abstract class AbstractProcessor<T> {
         Runnable processorJob = new Runnable() {
             @Override
             public void run() {
-                ArrayList<T> aggregatedResult = new ArrayList<T>(tests.getTestDatas().size());
-                Exception exitException = null;
                 for (TestData testData : tests.getTestDatas()){
                     try{
                         T result = validate(attachData, testData);
-                        aggregatedResult.add(result);
                         storeResult(result, attachData, testData);
                         if (needBreakPointResult(result)){
                             break;
                         }
                     }catch (Exception ex){
                         T result = processException(ex, attachData, testData);
-                        aggregatedResult.add(result);
+                        storeResult(result, attachData, testData);
                         if (needBreakPointException(ex)){
-                            exitException = ex;
                             break;
                         }
                     }
                 }
-                if(exitException == null)
-                    storeAggregatedResult(aggregatedResult, attachData, tests);
             }
         };
 
@@ -78,7 +75,7 @@ public abstract class AbstractProcessor<T> {
         FutureTask<T> task = new FutureTask<T>(new Callable<T>() {
             @Override
             public T call() throws Exception{
-                return validateResult(tempData, tempTestData);
+                return getResult(tempData, tempTestData);
             }
         });
 
@@ -97,13 +94,14 @@ public abstract class AbstractProcessor<T> {
         }
     }
 
-    protected abstract T validateResult(AttachData data, TestData testData) throws Exception;
+    protected void storeResult(T result, AttachData attachData, TestData testData){
+        StoreResultService service = Service.getFactory().storeResultService();
+        service.storeResult(result, attachData, testData);
+    }
+
+    protected abstract T getResult(AttachData data, TestData testData) throws Exception;
 
     protected abstract T processException(Exception ex, AttachData data, TestData testData);
-
-    protected abstract void storeResult(T result, AttachData attachData, TestData testData);
-
-    protected abstract void storeAggregatedResult(List<T> result, AttachData attachData, TestDatas testData);
 
     protected abstract boolean needBreakPointResult(T result);
 

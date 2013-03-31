@@ -6,7 +6,7 @@ import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.databaseapi.entities.TestDatas;
 import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
-import org.myeducation.taskexecuter.core.processor.java.JavaProcessor;
+import org.myeducation.taskexecuter.core.processor.program.java.JavaProcessor;
 
 import java.util.HashSet;
 import java.util.Set;
