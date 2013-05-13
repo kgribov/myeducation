@@ -73,7 +73,7 @@ public class TaskDaoTest {
             AttachData attachData = new AttachData();
             attachData.setType(attachDataType);
             attachData.setTaskSend(send);
-            attachData.setContent("example1.java");
+            attachData.setContent("file:example1.java");
 
             ArrayList<AttachData> attachDatas = new ArrayList<AttachData>();
             attachDatas.add(attachData);

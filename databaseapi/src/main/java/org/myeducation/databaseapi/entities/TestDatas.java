@@ -32,7 +32,7 @@ public class TestDatas {
     @JoinColumn(name = "testdatas_attachdata")
     private AttachDataType attachDataType;
 
-    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TestData> testDatas;
 
     public long getId() {

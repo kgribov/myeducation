@@ -30,7 +30,7 @@ public class AttachData {
     @JoinColumn(name = "tasksend_id")
     private TaskSend taskSend;
 
-    @OneToMany(mappedBy = "attachData", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "attachData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<TestDataResult> testsResult;
 
     public long getId() {

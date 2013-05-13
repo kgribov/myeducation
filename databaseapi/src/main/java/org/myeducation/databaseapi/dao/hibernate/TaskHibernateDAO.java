@@ -40,7 +40,14 @@ public class TaskHibernateDAO implements TaskDAO {
         EntityManager manager = managerFactory.createEntityManager();
         Task task = (Task)manager.createQuery("select task from Task as task where task.id=:id").setParameter("id", id).getSingleResult();
         manager.close();
-        return task;  //To change body of implemented methods use File | Settings | File Templates.
+        return task;
+    }
+
+    public TaskSend getTaskSend(long id) {
+        EntityManager manager = managerFactory.createEntityManager();
+        TaskSend tasksend = (TaskSend)manager.createQuery("select tasksend from TaskSend as tasksend where tasksend.id=:id").setParameter("id", id).getSingleResult();
+        manager.close();
+        return tasksend;
     }
 
     public List<Object[]> getNotProcessTestDatas(){

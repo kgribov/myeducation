@@ -32,7 +32,7 @@ public class TestData {
     @JoinColumn(name = "testdata_testdatas")
     private TestDatas testDatas;
 
-    @OneToMany(mappedBy = "testData", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "testData", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TestDataResult> testDataResult;
 
     public long getId() {

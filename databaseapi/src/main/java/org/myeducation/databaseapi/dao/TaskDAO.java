@@ -20,6 +20,7 @@ public interface TaskDAO {
     void addTaskSend(TaskSend taskSend);
     void addTestResult(TestDataResult result);
     Task getTask(long id);
+    TaskSend getTaskSend(long id);
     List<Object[]> getNotProcessTestDatas();
     Object[] getExecuteData(Long dataId, Long testsId);
 }
