@@ -2,10 +2,12 @@ package org.myeducation.taskexecuter.core.processor.program.java;
 
 import com.google.common.io.Closeables;
 import org.myeducation.databaseapi.entities.AttachData;
+import org.myeducation.databaseapi.entities.ProcessorResult;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.properties.PropertiesFactory;
 import org.myeducation.taskexecuter.core.processor.program.ProgramProcessor;
 import org.myeducation.taskexecuter.core.processor.program.ProgramResult;
+import org.myeducation.taskexecuter.core.util.DataSourceUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,17 +28,10 @@ import java.util.jar.Manifest;
  */
 public class JavaProcessor extends ProgramProcessor {
 
-    public JavaProcessor(){
-        super(Integer.parseInt(PropertiesFactory.getProperties("processors").getProperty("processor.java.cores")));
-    }
-
     @Override
-    protected ProgramResult getResult(AttachData data, TestData testData) throws Exception{
-        Properties properties = PropertiesFactory.getProperties("filesystem");
+    protected ProcessorResult getResult(AttachData data, TestData testData) throws Exception{
 
-        String fullFilePathName = properties.getProperty("java.filepath") + File.separator + data.getContent();
-
-        File javaFile = new File(fullFilePathName);
+        File javaFile = (File)DataSourceUtil.getSource(data.getContent());
         File jarFile = new File(getJarName(javaFile));
 
         if (!jarFile.exists()){
@@ -44,7 +39,13 @@ public class JavaProcessor extends ProgramProcessor {
         }
 
         if (jarFile.exists()){
-            return getResultFromJarFile(jarFile, testData);
+            ProgramResult programResult = getResultFromJarFile(jarFile, testData);
+
+            ProcessorResult<ProgramResult> result = new ProcessorResult<ProgramResult>();
+            result.setSuccess(programResult.isSuccess());
+            result.setResult(programResult);
+
+            return result;
         }else{
             throw new FileNotFoundException("Can't find jar file="+jarFile.getAbsolutePath());
         }
@@ -158,5 +159,10 @@ public class JavaProcessor extends ProgramProcessor {
     @Override
     public String getProcessorName() {
         return "java";
+    }
+
+    @Override
+    public int getCores() {
+        return Integer.parseInt(PropertiesFactory.getProperties("processors").getProperty("processor.java.cores"));
     }
 }

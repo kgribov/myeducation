@@ -1,7 +1,7 @@
 package org.myeducation.databaseapi.service.local;
 
 import org.myeducation.databaseapi.service.AuthService;
-import org.myeducation.databaseapi.service.ExecutorService;
+import org.myeducation.databaseapi.service.ExecutorSaveService;
 import org.myeducation.databaseapi.service.ServiceFactory;
 
 /**
@@ -16,7 +16,7 @@ public class LocalServiceFactory implements ServiceFactory {
         return new AuthServiceLocal();
     }
 
-    public ExecutorService storeResultService() {
-        return new ExecutorServiceLocal();
+    public ExecutorSaveService executorSaveService() {
+        return new ExecutorSaveServiceLocal();
     }
 }

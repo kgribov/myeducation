@@ -2,12 +2,11 @@ package processor.java;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.myeducation.databaseapi.entities.AttachData;
-import org.myeducation.databaseapi.entities.TestData;
-import org.myeducation.databaseapi.entities.TestDatas;
-import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
-import org.myeducation.taskexecuter.core.processor.program.java.JavaProcessor;
+import org.myeducation.databaseapi.dao.Dao;
+import org.myeducation.databaseapi.entities.*;
+import org.myeducation.taskexecuter.core.Executor;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,42 +19,63 @@ import java.util.Set;
  */
 public class JavaProcessorTest {
 
-    private AbstractProcessor processor;
+    private Executor executor = new Executor();
 
     private AttachData data1;
-    private TestData testData1;
-    private TestData testData2;
+    private TestDatas tests1;
 
-    @Before
-    public void initMethod(){
-        processor = new JavaProcessor();
-        data1 = new AttachData();
-        data1.setContent("example1.java");
-
-        testData1 = new TestData();
-        testData1.setInputData("clever");
-        testData1.setOutputData("Masha is clever");
-
-        testData2 = new TestData();
-        testData2.setInputData("super");
-        testData2.setOutputData("Masha is super");
-    }
-
+//    @Before
+//    public void initTest(){
+//        Task task = new Task();
+//        task.setDescription("test task description");
+//        task.setName("test task");
+//
+//        AttachDataType type = new AttachDataType();
+//        type.setTask(task);
+//
+//        data1 = new AttachData();
+//        data1.setType(type);
+//        data1.setContent("example1.java");
+//
+//        tests1 = new TestDatas();
+//        tests1.setTimeOut(new Long(3000));
+//        tests1.setExecType("java");
+//
+//        Set<TestData> testDataSet = new HashSet<TestData>();
+//
+//        TestData testData1;
+//        TestData testData2;
+//
+//        testData1 = new TestData();
+//        testData1.setInputData("world");
+//        testData1.setOutputData("Hello world");
+//
+//        testData2 = new TestData();
+//        testData2.setInputData("man");
+//        testData2.setOutputData("Hello man");
+//
+//        testDataSet.add(testData1);
+//        testData1.setTestDatas(tests1);
+//        testDataSet.add(testData2);
+//        testData2.setTestDatas(tests1);
+//
+//        tests1.setTestDatas(testDataSet);
+//
+//        type.setTestDatas(new HashSet<TestDatas>(Arrays.asList(tests1)));
+//        tests1.setAttachDataType(type);
+//
+//        Dao.getFactory().createTaskDao().addTask(task);
+//    }
+//
+//
+//    @Test
+//    public void testHelloWorld(){
+//        executor.processData(data1, tests1);
+//        executor.shutDown();
+//    }
 
     @Test
-    public void testHelloWorld(){
-        TestDatas datas = new TestDatas();
-        datas.setTimeOut(3000);
-
-        Set<TestData> testDataSet = new HashSet<TestData>();
-        testDataSet.add(testData1);
-        testData1.setTestDatas(datas);
-
-        testDataSet.add(testData2);
-        testData2.setTestDatas(datas);
-
-        datas.setTestDatas(testDataSet);
-
-        processor.execute(data1, datas);
+    public void exampleTest(){
+        new String("nothing");
     }
 }

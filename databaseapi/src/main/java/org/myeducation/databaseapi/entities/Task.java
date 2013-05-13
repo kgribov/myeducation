@@ -25,7 +25,7 @@ public class Task {
     @Column(name = "task_description", columnDefinition = "LONGTEXT")
     private String description;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
     private Set<AttachDataType> attachDataTypes;
 
     public long getId() {

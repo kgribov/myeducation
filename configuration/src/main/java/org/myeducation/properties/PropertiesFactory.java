@@ -24,8 +24,7 @@ public class PropertiesFactory {
                 String fileName = propName+".properties";
                 String folder = "properties";
                 String module = "configuration";
-                String fullPath = "../"+module + File.separator + folder + File.separator + fileName;
-                System.out.println("!!!!!!!!!!!!!!!"+fullPath);
+                String fullPath = ".."+File.separator+module + File.separator + folder + File.separator + fileName;
                 properties.load(new FileReader(fullPath));
                 result = properties;
             }catch (Exception ex){

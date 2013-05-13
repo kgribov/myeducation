@@ -1,6 +1,7 @@
 package org.myeducation.databaseapi.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,9 +25,15 @@ public class TestData {
     @Column(name = "testdata_outputdata", columnDefinition = "LONGTEXT")
     private String outputData;
 
+    @Column(name = "testdata_points")
+    private Integer points;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "testdata_testdatas")
     private TestDatas testDatas;
+
+    @OneToMany(mappedBy = "testData", fetch = FetchType.LAZY)
+    private List<TestDataResult> testDataResult;
 
     public long getId() {
         return id;
@@ -58,5 +65,21 @@ public class TestData {
 
     public void setTestDatas(TestDatas testDatas) {
         this.testDatas = testDatas;
+    }
+
+    public List<TestDataResult> getTestDataResult() {
+        return testDataResult;
+    }
+
+    public void setTestDataResult(List<TestDataResult> testDataResult) {
+        this.testDataResult = testDataResult;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }

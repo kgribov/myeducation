@@ -1,6 +1,7 @@
 package org.myeducation.taskexecuter.core.processor.program;
 
 import org.myeducation.databaseapi.entities.AttachData;
+import org.myeducation.databaseapi.entities.ProcessorResult;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
 
@@ -15,19 +16,16 @@ import java.io.Serializable;
  */
 public abstract class ProgramProcessor extends AbstractProcessor<ProgramResult> {
 
-    public ProgramProcessor(int cores){
-        super(cores);
-    }
-
-
     @Override
-    protected ProgramResult processException(Exception ex, AttachData data, TestData testData) {
-        ex.printStackTrace();
-        return new ProgramResult(false, 0 ,"wrong answer");
+    protected ProcessorResult processException(Exception ex, AttachData data, TestData testData) {
+        ProcessorResult<ProgramResult> result = new ProcessorResult<ProgramResult>();
+        result.setSuccess(false);
+        result.setResult(new ProgramResult(false, 0 ,"wrong answer"));
+        return result;
     }
 
     @Override
-    protected boolean needBreakPointResult(ProgramResult result){
+    protected boolean needBreakPointResult(ProcessorResult result){
         return false;
     }
 

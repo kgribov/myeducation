@@ -10,6 +10,9 @@
         <class>org.myeducation.databaseapi.entities.TestData</class>
         <class>org.myeducation.databaseapi.entities.AttachData</class>
         <class>org.myeducation.databaseapi.entities.TaskSend</class>
+        <class>org.myeducation.databaseapi.entities.TestDataResult</class>
+        <class>org.myeducation.databaseapi.entities.User</class>
+        <class>org.myeducation.databaseapi.entities.UserLogin</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

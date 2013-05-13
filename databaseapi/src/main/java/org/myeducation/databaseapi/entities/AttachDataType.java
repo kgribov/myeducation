@@ -26,10 +26,10 @@ public class AttachDataType {
     @JoinColumn(name = "attachdatatype_task")
     private Task task;
 
-    @OneToMany(mappedBy = "attachDataType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "attachDataType", fetch = FetchType.EAGER)
     private Set<TestDatas> testDatas;
 
-    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     private Set<AttachData> datas;
 
     public long getId() {

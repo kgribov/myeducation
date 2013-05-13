@@ -1,6 +1,7 @@
 package org.myeducation.databaseapi.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +29,9 @@ public class AttachData {
     @ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinColumn(name = "tasksend_id")
     private TaskSend taskSend;
+
+    @OneToMany(mappedBy = "attachData", fetch = FetchType.LAZY)
+    private Set<TestDataResult> testsResult;
 
     public long getId() {
         return id;
@@ -59,5 +63,13 @@ public class AttachData {
 
     public void setTaskSend(TaskSend taskSend) {
         this.taskSend = taskSend;
+    }
+
+    public Set<TestDataResult> getTestsResult() {
+        return testsResult;
+    }
+
+    public void setTestsResult(Set<TestDataResult> testsResult) {
+        this.testsResult = testsResult;
     }
 }

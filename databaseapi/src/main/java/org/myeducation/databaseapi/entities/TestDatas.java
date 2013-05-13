@@ -22,14 +22,17 @@ public class TestDatas {
     @Column(name = "testdatas_exectype")
     private String execType;
 
+    @Column(name = "testdatas_minpoints")
+    private Long minPoints;
+
     @Column(name = "testdatas_timeout")
-    private long timeOut;
+    private Long timeOut;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "testdatas_attachdata")
     private AttachDataType attachDataType;
 
-    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "testDatas", fetch = FetchType.EAGER)
     private Set<TestData> testDatas;
 
     public long getId() {
@@ -64,11 +67,19 @@ public class TestDatas {
         this.testDatas = testDatas;
     }
 
-    public long getTimeOut() {
+    public Long getTimeOut() {
         return timeOut;
     }
 
-    public void setTimeOut(long timeOut) {
+    public void setTimeOut(Long timeOut) {
         this.timeOut = timeOut;
+    }
+
+    public Long getMinPoints() {
+        return minPoints;
+    }
+
+    public void setMinPoints(Long minPoints) {
+        this.minPoints = minPoints;
     }
 }
