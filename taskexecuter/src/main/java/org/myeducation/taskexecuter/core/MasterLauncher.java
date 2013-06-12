@@ -20,6 +20,9 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class MasterLauncher {
+
+    final static Set<ExecutorDataDto> history = new HashSet<ExecutorDataDto>();
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
         final List<Socket> avaliableSlaves = new ArrayList<Socket>();
@@ -42,6 +45,7 @@ public class MasterLauncher {
             @Override
             public void run() {
                 List<ExecutorDataDto> dataList = service.getNewExecutorData();
+                System.out.println("Get "+dataList.size()+" packages of new data");
                 Iterator<ClusterPack> packs = getPackages(dataList).iterator();
                 Iterator<Socket> slavesIterator = avaliableSlaves.iterator();
                 while (packs.hasNext()){
@@ -57,22 +61,27 @@ public class MasterLauncher {
                     try {
                         ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
                         stream.writeObject(current);
+                        stream.flush();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        }, new Date(), 2000);
+        }, new Date(), 4000);
     }
 
     public static List<ClusterPack> getPackages(Iterable<ExecutorDataDto> data){
         List<ClusterPack> list = new ArrayList<ClusterPack>();
         for (ExecutorDataDto executorDataDto : data){
-            ClusterPack clusterPack = new ClusterPack();
-            clusterPack.setTime(System.currentTimeMillis());
-            ArrayList dataList = new ArrayList(1);
-            dataList.add(executorDataDto);
-            clusterPack.setData(dataList);
+            if (!history.contains(executorDataDto)){
+                ClusterPack clusterPack = new ClusterPack();
+                clusterPack.setTime(System.currentTimeMillis());
+                ArrayList dataList = new ArrayList(1);
+                dataList.add(executorDataDto);
+                clusterPack.setData(dataList);
+                list.add(clusterPack);
+                history.add(executorDataDto);
+            }
         }
         return list;
     }

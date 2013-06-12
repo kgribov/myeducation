@@ -6,10 +6,9 @@ import org.myeducation.databaseapi.model.ExecutorData;
 import org.myeducation.databaseapi.model.ExecutorDataDto;
 import org.myeducation.databaseapi.service.Service;
 import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
-import org.myeducation.taskexecuter.core.processor.KeywordProcessor;
+import org.myeducation.taskexecuter.core.processor.keyword.KeywordProcessor;
 import org.myeducation.taskexecuter.core.processor.program.java.JavaProcessor;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 

@@ -10,4 +10,5 @@ package org.myeducation.databaseapi.service;
 public interface ServiceFactory {
     AuthService authService();
     ExecutorSaveService executorSaveService();
+    TaskService taskService();
 }

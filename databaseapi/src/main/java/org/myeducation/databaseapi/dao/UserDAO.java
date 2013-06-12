@@ -22,7 +22,7 @@ public interface UserDAO {
 
     public void removeUser(String login);
 
-    public UserLogin getLogin(int id);
+    public UserLogin getLogin(long id);
 
     public UserLogin getLogin(String login);
 }

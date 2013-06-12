@@ -1,5 +1,6 @@
 package org.myeducation.portal.client.widget;
 
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -12,6 +13,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class DownToolBar extends VLayout {
     public DownToolBar(){
-        addMember(new Label("Down toolbar about us"));
+        Label label = new Label("MyEducation.com");
+        label.setAlign(Alignment.CENTER);
+        addMember(label);
     }
 }

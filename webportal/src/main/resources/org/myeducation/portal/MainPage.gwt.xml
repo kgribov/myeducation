@@ -10,4 +10,5 @@
   <source path='client' />
   <source path='shared' />
 
+    <servlet path="/TaskLoad" class="org.myeducation.portal.server.TaskLoadImpl"/>
 </module>

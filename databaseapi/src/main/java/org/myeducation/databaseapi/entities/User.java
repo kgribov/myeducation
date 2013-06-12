@@ -37,7 +37,7 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "user_createdate")
-    private long createDate;
+    private Long createDate;
 
     @Column(name = "user_photo")
     private String photo;

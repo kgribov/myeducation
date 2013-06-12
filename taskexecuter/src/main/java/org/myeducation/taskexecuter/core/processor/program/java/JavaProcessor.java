@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
@@ -31,7 +32,13 @@ public class JavaProcessor extends ProgramProcessor {
     @Override
     protected ProcessorResult getResult(AttachData data, TestData testData) throws Exception{
 
-        File javaFile = (File)DataSourceUtil.getSource(data.getContent());
+        File javaFile = null;
+        try{
+            javaFile = (File)DataSourceUtil.getSource(data.getContent());
+        } catch (Exception ex){
+            javaFile = DataSourceUtil.createFile(data);
+        }
+
         File jarFile = new File(getJarName(javaFile));
 
         if (!jarFile.exists()){

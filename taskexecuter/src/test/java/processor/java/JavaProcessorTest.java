@@ -21,9 +21,9 @@ public class JavaProcessorTest {
 
     @Test
     public void testHelloWorld(){
-        TaskSend send =  dao.getTaskSend(1);
-        AttachData attachData = send.getAttachDatas().iterator().next();
-        executor.processData(attachData, attachData.getType().getTestDatas().iterator().next());
-        executor.shutDown();
+//        TaskSend send =  dao.getTaskSend(1);
+//        AttachData attachData = send.getAttachDatas().iterator().next();
+//        executor.processData(attachData, attachData.getType().getTestDatas().iterator().next());
+//        executor.shutDown();
     }
 }

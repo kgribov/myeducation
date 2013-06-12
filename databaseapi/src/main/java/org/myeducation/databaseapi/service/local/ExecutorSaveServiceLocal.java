@@ -55,6 +55,7 @@ public class ExecutorSaveServiceLocal implements ExecutorSaveService {
             ExecutorData data = new ExecutorData();
             data.setData((AttachData)temp[0]);
             data.setTests((TestDatas)temp[1]);
+            result.add(data);
         }
         return result;
     }
@@ -64,8 +65,9 @@ public class ExecutorSaveServiceLocal implements ExecutorSaveService {
         ArrayList<ExecutorDataDto> result = new ArrayList(data.size());
         for (Object[] dataElement : data){
             ExecutorDataDto dataDto = new ExecutorDataDto();
-            dataDto.setDataId(((BigInteger)dataElement[0]).longValue());
-            dataDto.setTestsId(((BigInteger)dataElement[1]).longValue());
+            dataDto.setDataId((Long)dataElement[0]);
+            dataDto.setTestsId((Long)dataElement[1]);
+            result.add(dataDto);
         }
         return result;
     }

@@ -24,7 +24,6 @@ public class SlaveLauncher {
         final Executor executor = new Executor();
 
         final Socket socket = new Socket(properties.getProperty("master.address"), Integer.parseInt(properties.getProperty("master.port")));
-        ObjectInputStream dataReader = new ObjectInputStream(socket.getInputStream());
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
@@ -44,8 +43,13 @@ public class SlaveLauncher {
 
         while (true){
             System.out.println("Waiting for new data....");
-            ClusterPack data = (ClusterPack)dataReader.readObject();
-            executor.processTestDatas(data.getData());
+            try{
+                ObjectInputStream stream = new ObjectInputStream(socket.getInputStream());
+                ClusterPack data = (ClusterPack)stream.readObject();
+                executor.processTestDatas(data.getData());
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
             currentThread.sleep(1000);
         }
 

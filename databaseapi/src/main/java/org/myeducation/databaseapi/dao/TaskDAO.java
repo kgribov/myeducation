@@ -1,9 +1,6 @@
 package org.myeducation.databaseapi.dao;
 
-import org.myeducation.databaseapi.entities.Task;
-import org.myeducation.databaseapi.entities.TaskSend;
-import org.myeducation.databaseapi.entities.TestData;
-import org.myeducation.databaseapi.entities.TestDataResult;
+import org.myeducation.databaseapi.entities.*;
 
 import java.util.List;
 import java.util.Set;
@@ -23,4 +20,7 @@ public interface TaskDAO {
     TaskSend getTaskSend(long id);
     List<Object[]> getNotProcessTestDatas();
     Object[] getExecuteData(Long dataId, Long testsId);
+    List<TestDataResult> getResults(long taskId);
+    AttachData getAttachData(long id);
+    AttachDataType getAttachDataType(long id);
 }

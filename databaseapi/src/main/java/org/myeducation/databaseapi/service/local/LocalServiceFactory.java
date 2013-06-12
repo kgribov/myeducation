@@ -3,6 +3,7 @@ package org.myeducation.databaseapi.service.local;
 import org.myeducation.databaseapi.service.AuthService;
 import org.myeducation.databaseapi.service.ExecutorSaveService;
 import org.myeducation.databaseapi.service.ServiceFactory;
+import org.myeducation.databaseapi.service.TaskService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,5 +19,9 @@ public class LocalServiceFactory implements ServiceFactory {
 
     public ExecutorSaveService executorSaveService() {
         return new ExecutorSaveServiceLocal();
+    }
+
+    public TaskService taskService() {
+        return new TaskServiceLocal();
     }
 }

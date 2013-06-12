@@ -1,11 +1,14 @@
-package org.myeducation.taskexecuter.core.processor;
+package org.myeducation.taskexecuter.core.processor.keyword;
 
 import org.myeducation.databaseapi.entities.AttachData;
 import org.myeducation.databaseapi.entities.ProcessorResult;
 import org.myeducation.databaseapi.entities.TestData;
 import org.myeducation.properties.PropertiesFactory;
+import org.myeducation.taskexecuter.core.processor.AbstractProcessor;
 import org.myeducation.taskexecuter.core.util.DataSourceUtil;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -24,7 +27,21 @@ public class KeywordProcessor extends AbstractProcessor {
         String content = (String)DataSourceUtil.getSource(data.getContent());
         String[] words =  testData.getInputData().split(properties.getProperty("processor.keyword.separator"));
 
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        ProcessorResult<KeywordResult> processorResult = new ProcessorResult<KeywordResult>();
+        processorResult.setSuccess(true);
+        KeywordResult result = new KeywordResult();
+        processorResult.setResult(result);
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        result.setWordsPositions(map);
+        for (String word : words){
+            Integer position = content.indexOf(word);
+            if (position == -1){
+                processorResult.setSuccess(false);
+            }
+            map.put(word, position);
+        }
+        return processorResult;
     }
 
     @Override
