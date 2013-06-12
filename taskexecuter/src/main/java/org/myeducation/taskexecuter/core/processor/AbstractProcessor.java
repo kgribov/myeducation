@@ -8,6 +8,9 @@ import org.myeducation.properties.PropertiesFactory;
 import org.myeducation.databaseapi.entities.ProcessorResult;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.concurrent.*;
 
@@ -34,7 +37,9 @@ public abstract class AbstractProcessor<T extends Serializable> {
         Runnable processorJob = new Runnable() {
             @Override
             public void run() {
-                for (TestData testData : tests.getTestDatas()){
+                Iterator<TestData> iterator = new ArrayList(tests.getTestDatas()).iterator();
+                while(iterator.hasNext()){
+                    TestData testData = iterator.next();
                     try{
                         ProcessorResult<T> result = validate(attachData, testData);
                         storeResult(result, attachData, testData);

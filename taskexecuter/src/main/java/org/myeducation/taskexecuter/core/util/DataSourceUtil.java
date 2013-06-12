@@ -25,10 +25,12 @@ public class DataSourceUtil {
     }
 
     public static File createFile(AttachData data){
-        File file = new File(PropertiesFactory.getProperties("filesystem").getProperty("filepath")+File.separator+data.getId());
+        String content = data.getContent();
+        String className = getClassName(content);
+        File file = new File(PropertiesFactory.getProperties("filesystem").getProperty("filepath")+File.separator+data.getId()+File.separator+className+".java");
         try {
             if (!file.exists()){
-                file.createNewFile();
+                file.getParentFile().mkdirs();
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(data.getContent());
@@ -37,5 +39,20 @@ public class DataSourceUtil {
             e.printStackTrace();
         }
         return file;
+    }
+
+    private static String getClassName(String content){
+        StringBuilder result = new StringBuilder();
+        String pattern = "public class ";
+        int index = content.indexOf(pattern);
+        for (int i=index+pattern.length(); i<content.length(); i++){
+            char c = content.charAt(i);
+            if (c!=' ' && c!='{'){
+                result.append(c);
+            } else{
+                break;
+            }
+        }
+        return result.toString();
     }
 }

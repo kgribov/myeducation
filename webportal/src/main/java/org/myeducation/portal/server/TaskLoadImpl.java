@@ -84,8 +84,8 @@ public class TaskLoadImpl extends RemoteServiceServlet implements TaskLoad {
                     }
                 }
 
-                for (AttachData attachData : taskSend.getAttachDatas()){
-                    for (TestDatas testDatas : attachData.getType().getTestDatas()){
+                for (AttachData attachData : new ArrayList<AttachData>(taskSend.getAttachDatas())){
+                    for (TestDatas testDatas : new ArrayList<TestDatas>(attachData.getType().getTestDatas())){
                         minPoints += testDatas.getMinPoints();
                     }
                 }

@@ -87,9 +87,11 @@ public class JavaProcessor extends ProgramProcessor {
         String line;
         while ((line = br.readLine()) != null) {
             output.append(line);
+            output.append('\n');
         }
-        Closeables.close(br, false);
 
+        Closeables.close(br, false);
+        output = new StringBuilder(output.toString().substring(0, output.length()-1));
         System.out.println("Result = " + output);
         System.out.println("Test data = "+testData.getOutputData());
         if (output.toString().equals(testData.getOutputData())){
